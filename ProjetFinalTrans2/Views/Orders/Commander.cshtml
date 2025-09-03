@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Confirmation de commande";
+}
+
+<div class="text-center mt-5">
+    <h2 class="text-success mb-4">Merci pour votre commande!</h2>
+    <p>Votre commande a été validée avec succès. Nous vous contacterons pour la livraison.</p>
+
+    <div id="paypal-button-container" class="my-4"></div>
+
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-4">Retour à l'accueil</a>
+</div>
+
+@section Scripts {
+    <!-- Script SDK PayPal -->
+    <script src="https://www.paypal.com/sdk/js?client-id=TON_CLIENT_ID_SANDBOX&currency=EUR"></script>
+
+    <script>
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '100.00' // 💵 Remplacer par montant dynamique si besoin
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (details) {
+                    alert('Merci ' + details.payer.name.given_name + ' pour votre paiement !');
+                    window.location.href = '/Home/Index'; // Redirection après succès
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+}

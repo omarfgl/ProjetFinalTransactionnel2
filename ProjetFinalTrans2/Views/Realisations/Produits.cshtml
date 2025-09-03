@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ProjetFinalTrans2.Models.Realisation>
+
+<h2 class="text-center my-4">Nos produits</h2>
+
+<div class="d-flex justify-content-end mb-4">
+    <a asp-controller="Orders" asp-action="ShoppingCart" class="btn btn-success btn-lg">
+        🛒 Voir le panier
+    </a>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+                <img src="@item.ImageUrl" class="card-img-top" style="height: 250px; object-fit: cover;" />
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center">@item.Titre</h5>
+                    <p class="card-text text-center text-muted">@item.Categorie</p>
+                    <h5 class="text-center fw-bold mb-3">@item.Prix €</h5>
+
+                    <form asp-controller="Orders" asp-action="AddItemToShoppingCart" method="get" class="mt-auto">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+    }
+</div>

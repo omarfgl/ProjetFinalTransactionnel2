@@ -1,0 +1,74 @@
+﻿@model ProjetFinalTrans2.Data.ViewModels.ShoppingCartVM
+
+<h2 class="text-center my-4">Votre panier</h2>
+
+@if (Model.ShoppingCart.ShoppingCartItems.Count == 0)
+{
+    <div class="alert alert-warning text-center">
+        Votre panier est vide.
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Sous-total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+            {
+                <tr>
+                    <td>@item.Produit.Titre</td>
+                    <td>@item.Amount</td>
+                    <td>@item.Produit.Prix €</td>
+                    <td>@(item.Produit.Prix * item.Amount) €</td>
+                    <td>
+                        <a asp-action="AddItemToShoppingCart" asp-route-id="@item.Produit.Id" class="btn btn-success btn-sm">+</a>
+                        <a asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Produit.Id" class="btn btn-danger btn-sm">-</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <h4>Total: @Model.ShoppingCartTotal €</h4>
+
+        <div class="d-flex flex-column">
+            <a asp-action="ClearShoppingCart" class="btn btn-outline-danger mb-2">Vider le panier</a>
+
+            
+            <div id="paypal-button-container" class="mt-2"></div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="https://www.paypal.com/sdk/js?client-id=Aemsw0uVOFmJvj4UJrdbCtIiBjj1qDfubYrcnFEEkyVK5qxF7mFrpk7PtXGw6bh4X5PpqZy4K8SBYaqL&currency=EUR"></script>
+
+    <script>
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '@Model.ShoppingCartTotal.ToString("F2")'
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (details) {
+                    alert('Merci ' + details.payer.name.given_name + ' pour votre paiement !');
+                    window.location.href = '/Orders/Commander';
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+}

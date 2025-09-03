@@ -1,0 +1,13 @@
+﻿@model ProjetFinalTrans2.Models.Realisation
+
+<h2>@Model.Titre</h2>
+
+<div class="card">
+    <img src="@Model.ImageUrl" alt="@Model.Titre" class="card-img-top" style="max-height: 400px;" />
+    <div class="card-body">
+        <h5 class="card-title">@Model.Categorie</h5>
+        <p class="card-text">@Model.Description</p>
+        <p class="card-text fw-bold">Prix : @Model.Prix €</p>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Retour à la liste</a>
+    </div>
+</div>

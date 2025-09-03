@@ -1,0 +1,47 @@
+body {
+    background-image: url('https://img.freepik.com/photos-gratuite/vue-dessus-planches-bois-fond-nude_140725-142527.jpg?t=st=1745847563~exp=1745851163~hmac=bd1ac0f83bd50b5b84cc70b5af79d530ece46ff22b9730ce9ce1388e8d921d83&w=1380');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+.navbar {
+    background-color: #343a40 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link, .navbar-brand {
+    color: white !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover, .navbar-brand:hover {
+    color: #ffc107 !important;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+}
+
