@@ -94,7 +94,6 @@ dotnet run
 
 ### ℹ️ Page About
 ![About](docs/screenshots/About.png)
-
 ---
 
 ## 📘 Ce que j’ai appris
